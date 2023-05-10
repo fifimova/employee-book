@@ -1,5 +1,7 @@
 package skypro.corse2.employeebook;
 
+import java.util.Objects;
+
 public class Employee {
     private String firstName;
     private String lastname;
@@ -18,17 +20,24 @@ public class Employee {
     }
 
     @Override
-    public String toString() {
-        return "ФИО - " + this.firstName + " " + this.lastname;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Employee employee = (Employee) o;
+        return Objects.equals(firstName, employee.firstName) && Objects.equals(lastname, employee.lastname);
     }
 
     @Override
     public int hashCode() {
-        return super.hashCode();
+        return Objects.hash(firstName, lastname);
     }
 
     @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
+    public String toString() {
+        return "Employee{" +
+                "firstName='" + firstName + '\'' +
+                ", lastname='" + lastname + '\'' +
+                '}';
     }
 }
+
