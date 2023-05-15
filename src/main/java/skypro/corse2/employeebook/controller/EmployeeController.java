@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import skypro.corse2.employeebook.Employee;
 import skypro.corse2.employeebook.service.EmployeeService;
 
-import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/employee")
@@ -40,7 +40,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/list")
-    public List<Employee> getEmployeeBook() {
+    public Set<Employee> getEmployeeBook() {
         return employeeService.getEmployeeBook();
     }
 }
