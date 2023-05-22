@@ -39,5 +39,9 @@ public class Employee {
                 ", lastname='" + lastname + '\'' +
                 '}';
     }
+
+    public String getFullName() {
+        return firstName + " " + lastname;
+    }
 }
 

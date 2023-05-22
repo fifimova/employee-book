@@ -2,7 +2,7 @@ package skypro.corse2.employeebook.service;
 
 import skypro.corse2.employeebook.Employee;
 
-import java.util.Set;
+import java.util.Collection;
 
 public interface EmployeeService {
     Employee addEmployee(String firstName, String lastName);
@@ -12,5 +12,5 @@ public interface EmployeeService {
     Employee findEmployee(String firstName, String lastName);
 
 
-    Set<Employee> getEmployeeBook();
+    Collection<Employee> getEmployeeBook();
 }
