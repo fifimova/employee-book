@@ -3,8 +3,8 @@ package skypro.corse2.employeebook;
 import java.util.Objects;
 
 public class Employee {
-    private String firstName;
-    private String lastname;
+    private final String firstName;
+    private final String lastname;
 
     public Employee(String firstName, String lastname) {
         this.firstName = firstName;
@@ -38,6 +38,10 @@ public class Employee {
                 "firstName='" + firstName + '\'' +
                 ", lastname='" + lastname + '\'' +
                 '}';
+    }
+
+    public String getFullName() {
+        return firstName + " " + lastname;
     }
 }
 
