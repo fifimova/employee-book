@@ -6,7 +6,9 @@ import skypro.corse2.employeebook.exceptions.EmployeeAlreadyAddedException;
 import skypro.corse2.employeebook.exceptions.EmployeeNotFoundException;
 import skypro.corse2.employeebook.exceptions.EmployeeStorageIsFullException;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -18,9 +20,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-
-    public Employee addEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee addEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employeeBook.size() >= MAX_QUANTITY) {
             throw new EmployeeStorageIsFullException("В хранилище не может быть больше 10 сотрудников");
         }
@@ -33,8 +34,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 
     @Override
-    public Employee findEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee findEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employeeBook.containsKey(employee.getFullName())) {
             return employeeBook.get(employee.getFullName());
         }
@@ -42,8 +43,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee removeEmployee(String firstName, String lastName, int department, int salary) {
+        Employee employee = new Employee(firstName, lastName, department, salary);
         if (employeeBook.containsKey(employee.getFullName())) {
             return employeeBook.remove(employee.getFullName());
         }
@@ -51,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Collection<Employee> getEmployeeBook() {
-        return Collections.unmodifiableCollection(employeeBook.values());
+    public List<Employee> getEmployeeBook() {
+        return List.copyOf(employeeBook.values());
     }
 }
