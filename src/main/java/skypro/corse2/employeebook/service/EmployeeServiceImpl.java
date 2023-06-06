@@ -5,10 +5,13 @@ import skypro.corse2.employeebook.Employee;
 import skypro.corse2.employeebook.exceptions.EmployeeAlreadyAddedException;
 import skypro.corse2.employeebook.exceptions.EmployeeNotFoundException;
 import skypro.corse2.employeebook.exceptions.EmployeeStorageIsFullException;
+import skypro.corse2.employeebook.exceptions.WrongData;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.apache.commons.lang3.StringUtils.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -22,6 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee addEmployee(String firstName, String lastName, int department, int salary) {
         Employee employee = new Employee(firstName, lastName, department, salary);
+        validateInput(firstName, lastName);
         if (employeeBook.size() >= MAX_QUANTITY) {
             throw new EmployeeStorageIsFullException("В хранилище не может быть больше 10 сотрудников");
         }
@@ -36,6 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee findEmployee(String firstName, String lastName, int department, int salary) {
         Employee employee = new Employee(firstName, lastName, department, salary);
+        validateInput(firstName, lastName);
         if (employeeBook.containsKey(employee.getFullName())) {
             return employeeBook.get(employee.getFullName());
         }
@@ -45,6 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public Employee removeEmployee(String firstName, String lastName, int department, int salary) {
         Employee employee = new Employee(firstName, lastName, department, salary);
+        validateInput(firstName, lastName);
         if (employeeBook.containsKey(employee.getFullName())) {
             return employeeBook.remove(employee.getFullName());
         }
@@ -54,5 +60,18 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public List<Employee> getEmployeeBook() {
         return List.copyOf(employeeBook.values());
+    }
+
+    private void validateInput(String firstName, String lastName) {
+        if (!(isAlpha(firstName) || isAlpha(lastName))) {
+            throw new WrongData("имя и фамилия должны быть написаны с заглавной буквы");
+        }
+        if (isNumeric(firstName) || isNumeric(lastName)) {
+            throw new WrongData("имя и фамилия не должны содержать цифры");
+        }
+        if (containsAny(firstName, '!', '@', '-', '_', '+', ',', '.') ||
+                containsAny(lastName, '!', '@', '-', '_', '+', ',', '.')) {
+            throw new WrongData("недопустимы символы");
+        }
     }
 }

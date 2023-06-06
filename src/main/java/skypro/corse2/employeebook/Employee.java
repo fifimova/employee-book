@@ -2,6 +2,8 @@ package skypro.corse2.employeebook;
 
 import java.util.Objects;
 
+import static org.apache.commons.lang3.StringUtils.capitalize;
+
 public class Employee {
     private final String firstName;
     private final String lastname;
@@ -9,8 +11,8 @@ public class Employee {
     private final int salary;
 
     public Employee(String firstName, String lastname, int department, int salary) {
-        this.firstName = firstName;
-        this.lastname = lastname;
+        this.firstName = capitalize(firstName.toLowerCase());
+        this.lastname = capitalize(lastname.toLowerCase());
         this.department = department;
         this.salary = salary;
     }
