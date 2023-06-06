@@ -5,7 +5,6 @@ import skypro.corse2.employeebook.Employee;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -18,35 +17,31 @@ public class EmployeeByDepartmentServiceImpl implements EmployeeByDepartmentServ
     }
 
     @Override
-    public List<Employee> findMinSalaryInDepartment(int department) {
-        List<Employee> employeeBook = (List<Employee>) employeeService.getEmployeeBook();
-        Optional<Employee> employees = employeeBook.stream()
+    public Employee findMinSalaryInDepartment(int department) {
+        return employeeService.getEmployeeBook().stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .min(Comparator.comparingInt(Employee::getSalary));
-        return employees.stream().collect(Collectors.toList());
+                .min(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(() -> new IllegalArgumentException("no employee"));
     }
 
     @Override
-    public List<Employee> findMaxSalaryInDepartment(int department) {
-        List<Employee> employeeBook = (List<Employee>) employeeService.getEmployeeBook();
-        Optional<Employee> employees = employeeBook.stream()
+    public Employee findMaxSalaryInDepartment(int department) {
+        return employeeService.getEmployeeBook().stream()
                 .filter(employee -> employee.getDepartment() == department)
-                .max(Comparator.comparingInt(Employee::getSalary));
-        return employees.stream().collect(Collectors.toList());
+                .max(Comparator.comparingInt(Employee::getSalary))
+                .orElseThrow(() -> new IllegalArgumentException("no employee"));
     }
 
     @Override
     public List<Employee> printListOfDepartment(int department) {
-        List<Employee> employeeBook = (List<Employee>) employeeService.getEmployeeBook();
-        return employeeBook.stream()
+        return employeeService.getEmployeeBook().stream()
                 .filter(employee -> employee.getDepartment() == department)
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<Employee> printEmployeesByDepartment() {
-        List<Employee> employeeBook = (List<Employee>) employeeService.getEmployeeBook();
-        return employeeBook.stream()
+        return employeeService.getEmployeeBook().stream()
                 .sorted(Comparator.comparingInt(Employee::getDepartment))
                 .collect(Collectors.toList());
     }

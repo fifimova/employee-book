@@ -20,12 +20,12 @@ public class EmployeeByDepartmentController {
     }
 
     @GetMapping("/min-salary")
-    public List<Employee> findMinSalaryInDepartment(@RequestParam("departmentId") int department) {
+    public Employee findMinSalaryInDepartment(@RequestParam("departmentId") int department) {
         return employeeByDepartmentService.findMinSalaryInDepartment(department);
     }
 
     @GetMapping("/max-salary")
-    public List<Employee> findMaxSalaryInDepartment(@RequestParam("departmentId") int department) {
+    public Employee findMaxSalaryInDepartment(@RequestParam("departmentId") int department) {
         return employeeByDepartmentService.findMaxSalaryInDepartment(department);
     }
 
