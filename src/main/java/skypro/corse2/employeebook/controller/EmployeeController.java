@@ -8,7 +8,6 @@ import skypro.corse2.employeebook.Employee;
 import skypro.corse2.employeebook.service.EmployeeService;
 
 import java.util.Collection;
-import java.util.Set;
 
 @RestController
 @RequestMapping("/employee")
@@ -21,23 +20,29 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public Employee addEmployee(@RequestParam("firstName") String firstName,
-                                @RequestParam("lastName") String lastName
+                                @RequestParam("lastName") String lastName,
+                                @RequestParam("department") int department,
+                                @RequestParam("salary") int salary
     ) {
-        return employeeService.addEmployee(firstName, lastName);
+        return employeeService.addEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/find")
     public Employee findEmployee(@RequestParam("firstName") String firstName,
-                                 @RequestParam("lastName") String lastName
+                                 @RequestParam("lastName") String lastName,
+                                 @RequestParam("department") int department,
+                                 @RequestParam("salary") int salary
     ) {
-        return employeeService.findEmployee(firstName, lastName);
+        return employeeService.findEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/remove")
     public Employee removeEmployee(@RequestParam("firstName") String firstName,
-                                   @RequestParam("lastName") String lastName
-                                   ) {
-        return employeeService.removeEmployee(firstName, lastName);
+                                   @RequestParam("lastName") String lastName,
+                                   @RequestParam("department") int department,
+                                   @RequestParam("salary") int salary
+    ) {
+        return employeeService.removeEmployee(firstName, lastName, department, salary);
     }
 
     @GetMapping("/list")
