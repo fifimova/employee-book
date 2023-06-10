@@ -5,7 +5,7 @@ import skypro.corse2.employeebook.Employee;
 import skypro.corse2.employeebook.exceptions.EmployeeAlreadyAddedException;
 import skypro.corse2.employeebook.exceptions.EmployeeNotFoundException;
 import skypro.corse2.employeebook.exceptions.EmployeeStorageIsFullException;
-import skypro.corse2.employeebook.exceptions.WrongData;
+import skypro.corse2.employeebook.exceptions.WrongDataException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,14 +64,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private void validateInput(String firstName, String lastName) {
         if (!(isAlpha(firstName) || isAlpha(lastName))) {
-            throw new WrongData("имя и фамилия должны быть написаны с заглавной буквы");
-        }
-        if (isNumeric(firstName) || isNumeric(lastName)) {
-            throw new WrongData("имя и фамилия не должны содержать цифры");
-        }
-        if (containsAny(firstName, '!', '@', '-', '_', '+', ',', '.') ||
-                containsAny(lastName, '!', '@', '-', '_', '+', ',', '.')) {
-            throw new WrongData("недопустимы символы");
+            throw new WrongDataException("Unexpected symbols");
         }
     }
 }
