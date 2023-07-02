@@ -5,6 +5,7 @@ import skypro.corse2.employeebook.Employee;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -40,9 +41,17 @@ public class EmployeeByDepartmentServiceImpl implements EmployeeByDepartmentServ
     }
 
     @Override
-    public List<Employee> printEmployeesByDepartment() {
+    public Map<Integer, List<Employee>> printEmployeesByDepartment() {
+        return employeeService.getEmployeeBook()
+                .stream()
+                .collect(Collectors.groupingBy(Employee::getDepartment));
+    }
+
+    @Override
+    public Integer sumSalaryByDepartment(int department) {
         return employeeService.getEmployeeBook().stream()
-                .sorted(Comparator.comparingInt(Employee::getDepartment))
-                .collect(Collectors.toList());
+                .filter(employee -> employee.getDepartment() == department)
+                .mapToInt(Employee::getSalary)
+                .sum();
     }
 }

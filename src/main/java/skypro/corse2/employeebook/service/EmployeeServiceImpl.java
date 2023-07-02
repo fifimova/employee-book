@@ -11,11 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.apache.commons.lang3.StringUtils.*;
+import static org.apache.commons.lang3.StringUtils.isAlpha;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    public final int MAX_QUANTITY = 10;
+    public final int MAX_QUANTITY = 4;
     private final Map<String, Employee> employeeBook;
 
     public EmployeeServiceImpl() {
@@ -52,7 +52,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         Employee employee = new Employee(firstName, lastName, department, salary);
         validateInput(firstName, lastName);
         if (employeeBook.containsKey(employee.getFullName())) {
-            return employeeBook.remove(employee.getFullName());
+            return employeeBook.remove(employee);
         }
         throw new EmployeeNotFoundException("Сотрудник не найден");
     }
